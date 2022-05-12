@@ -6,4 +6,7 @@ export class category {
 
   @Column()
   name: string;
+
+  @Column({ default: 0 })
+  totalCount: number;
 }
