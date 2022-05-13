@@ -19,12 +19,10 @@ export class OrderService {
     });
     const orderCountUpdate = orderCount.orderCount + 1;
 
-    await this.categoryRepository
-      .createQueryBuilder('category')
-      .update('category')
-      .set({ orderCount: orderCountUpdate })
-      .where('id =:id', { id: category })
-      .execute();
+    await this.categoryRepository.update(
+      { id: category },
+      { orderCount: orderCountUpdate },
+    );
 
     return await this.orderRepository.save({ name: name, category: category });
   }
