@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -18,6 +20,11 @@ export class CategoryController {
   createCategory(
     @Body() createCategoryInput: CreateCategoryInput,
   ): Promise<Category> {
-    return this.categoryService.createCategory(createCategoryInput);
+    return this.categoryService.createCategory({ createCategoryInput });
   }
+
+  // @Get()
+  // fetchCategorys(): Promise<Category[]> {
+  //   return this.categoryService.findAll();
+  // }
 }
