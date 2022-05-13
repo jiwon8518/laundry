@@ -22,12 +22,13 @@ export class CategoryController {
   createCategory(
     @Body() createCategoryInput: CreateCategoryInput,
   ): Promise<Category> {
+    this.logger.verbose(`creating a new category`);
     return this.categoryService.createCategory({ createCategoryInput });
   }
 
   @Get()
   fetchCategorys(): Promise<Category[]> {
-    this.logger.verbose(`trying to  get all categorys`);
+    this.logger.verbose(`trying to get all categorys`);
     return this.categoryService.findAll();
   }
 }
