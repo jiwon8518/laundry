@@ -9,5 +9,5 @@ export class Category {
   name: string;
 
   @Column({ default: 0 })
-  totalCount: number;
+  orderCount: number;
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from './apis/category/category.module';
-import { CategoryController } from './apis/category/category.controller';
+import { OrderModule } from './apis/order/order.module';
 
 @Module({
   imports: [
@@ -17,6 +17,7 @@ import { CategoryController } from './apis/category/category.controller';
       logging: true,
     }),
     CategoryModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],

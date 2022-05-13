@@ -8,7 +8,11 @@ export class CategoryService {
   @InjectRepository(Category)
   private readonly categoryRepository: Repository<Category>;
 
-  async createCategory(createCategoryInput) {
+  async createCategory({ createCategoryInput }) {
     return await this.categoryRepository.save(createCategoryInput);
+  }
+
+  async findAll() {
+    return await this.categoryRepository.find();
   }
 }
