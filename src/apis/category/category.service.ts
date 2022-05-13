@@ -13,7 +13,7 @@ export class CategoryService {
     return await this.categoryRepository.save(createCategoryInput);
   }
 
-  // async findAll() {
-  //   return await this.categoryRepository.find();
-  // }
+  async findAll() {
+    return await this.categoryRepository.find();
+  }
 }
