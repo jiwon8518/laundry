@@ -28,4 +28,15 @@ export class OrderService {
 
     return await this.orderRepository.save({ name: name, category: category });
   }
+
+  async findAll({ category }) {
+    const result = await this.orderRepository
+      .createQueryBuilder('order')
+      .select('order')
+      .where('order.category = :categoryId', { categoryId: category })
+      .orderBy('order.createAt', 'ASC')
+      .getMany();
+
+    return result;
+  }
 }
