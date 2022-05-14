@@ -41,6 +41,8 @@ export class OrderController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateOrderInput: UpdateOrderInput,
   ) {
-    return await this.orderService.updateOrder({ id, updateOrderInput });
+    await this.logger.verbose(`updating order
+    Payload: ${JSON.stringify(updateOrderInput)}`);
+    return await this.orderService.update({ id, updateOrderInput });
   }
 }

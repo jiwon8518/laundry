@@ -43,17 +43,30 @@ export class OrderService {
     return result;
   }
 
-  async updateOrder({ id, updateOrderInput }: IUpdate) {
+  async update({ id, updateOrderInput }) {
     const { name, category } = updateOrderInput;
-    const order = await this.orderRepository.findOne({ where: { id } });
-    console.log('========================');
-    console.log(`원래 카테고리 ${order.category}`);
-    console.log(`수정할 카테고리 ${category}`);
-    console.log('========{...order}================');
-    console.log({ ...order });
-    console.log('========================');
+
+    const order = await this.orderRepository
+      .createQueryBuilder('order')
+      .innerJoinAndSelect('order.category', 'category')
+      .select(['order.id', 'order.name', 'category.id', 'category.orderCount'])
+      .where('order.id = :id', { id })
+      .getOne();
+
+    const updateOrderCountId = order.category.id;
+
     order.name = name;
-    // order.category = category;
+    order.category.id = category;
+    order.category.orderCount += 1;
+
+    const updateOrderCountInfo = await this.categoryRepository.findOne({
+      where: { id: updateOrderCountId },
+    });
+    const updateOrderCount = updateOrderCountInfo.orderCount - 1;
+    await this.categoryRepository.update(
+      { id: updateOrderCountId },
+      { orderCount: updateOrderCount },
+    );
 
     return await this.orderRepository.save(order);
   }
