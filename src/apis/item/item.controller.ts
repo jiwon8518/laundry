@@ -9,7 +9,6 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Order } from '../order/entities/order.entity';
 import { CreateItemInput } from './dto/createItem.input';
 import { UpdateItemInput } from './dto/updateItem.input';
 import { Item } from './entities/item.entity';
