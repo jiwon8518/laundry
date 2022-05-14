@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -20,6 +21,7 @@ export class Order {
   @CreateDateColumn()
   createAt: Date;
 
+  @JoinColumn()
   @ManyToOne(() => Category, { cascade: true, onDelete: 'CASCADE' })
   category: Category;
 
