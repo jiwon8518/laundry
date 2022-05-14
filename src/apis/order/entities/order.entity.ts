@@ -24,5 +24,5 @@ export class Order {
   category: Category;
 
   @OneToMany(() => Item, (item) => item.order, { eager: true })
-  item: Item;
+  item: Item[];
 }
