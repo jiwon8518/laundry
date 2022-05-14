@@ -4,12 +4,14 @@ import {
   Get,
   Logger,
   Param,
+  ParseIntPipe,
+  Patch,
   Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Category } from '../category/entities/category.entity';
 import { CreateOrderInput } from './dto/createOrder.input';
+import { UpdateOrderInput } from './dto/updateOrder.input';
 import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
 
@@ -32,5 +34,13 @@ export class OrderController {
   async fetchOrder(@Param('category') category: number) {
     this.logger.verbose(`CategoryId ${category} trying to find all orders`);
     return await this.orderService.findAll({ category });
+  }
+
+  @Patch('/:id')
+  async updateOrder(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateOrderInput: UpdateOrderInput,
+  ) {
+    return await this.orderService.updateOrder({ id, updateOrderInput });
   }
 }

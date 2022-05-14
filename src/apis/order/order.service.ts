@@ -2,8 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from '../category/entities/category.entity';
-import { CreateOrderInput } from './dto/createOrder.input';
+import { UpdateOrderInput } from './dto/updateOrder.input';
 import { Order } from './entities/order.entity';
+
+interface IUpdate {
+  id: number;
+  updateOrderInput: UpdateOrderInput;
+}
 
 @Injectable()
 export class OrderService {
@@ -36,5 +41,20 @@ export class OrderService {
       .getMany();
 
     return result;
+  }
+
+  async updateOrder({ id, updateOrderInput }: IUpdate) {
+    const { name, category } = updateOrderInput;
+    const order = await this.orderRepository.findOne({ where: { id } });
+    console.log('========================');
+    console.log(`원래 카테고리 ${order.category}`);
+    console.log(`수정할 카테고리 ${category}`);
+    console.log('========{...order}================');
+    console.log({ ...order });
+    console.log('========================');
+    order.name = name;
+    // order.category = category;
+
+    return await this.orderRepository.save(order);
   }
 }
