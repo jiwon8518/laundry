@@ -25,6 +25,9 @@ export class Order {
   @ManyToOne(() => Category, { cascade: true, onDelete: 'CASCADE' })
   category: Category;
 
+  @Column({ nullable: true })
+  categoryId: number;
+
   @OneToMany(() => Item, (item) => item.order, { eager: true })
   item: Item[];
 }

@@ -53,21 +53,25 @@ export class OrderService {
       .where('order.id = :id', { id })
       .getOne();
 
-    const updateOrderCountId = order.category.id;
+    const categoryId = order.category.id;
+    const categoryInfo = await this.categoryRepository.findOne({
+      where: { id: categoryId },
+    });
+    const categoryInfoOrderCount = categoryInfo.orderCount;
+    const result = await this.categoryRepository.findOne({
+      where: { id: category },
+    });
+    const OrderCount = result.orderCount;
 
     order.name = name;
     order.category.id = category;
-    order.category.orderCount += 1;
+    order.category.orderCount = OrderCount + 1;
+    await this.orderRepository.save(order);
 
-    const updateOrderCountInfo = await this.categoryRepository.findOne({
-      where: { id: updateOrderCountId },
-    });
-    const updateOrderCount = updateOrderCountInfo.orderCount - 1;
-    await this.categoryRepository.update(
-      { id: updateOrderCountId },
-      { orderCount: updateOrderCount },
+    const updateMinusCount = await this.categoryRepository.update(
+      { id: categoryId },
+      { orderCount: categoryInfoOrderCount - 1 },
     );
-
-    return await this.orderRepository.save(order);
+    return updateMinusCount;
   }
 }
