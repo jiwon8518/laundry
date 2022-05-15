@@ -63,15 +63,21 @@ export class OrderService {
     });
     const OrderCount = result.orderCount;
 
-    order.name = name;
-    order.category.id = category;
-    order.category.orderCount = OrderCount + 1;
-    await this.orderRepository.save(order);
+    if (category !== undefined) {
+      order.category.id = category;
+    }
+    if (order.category.id !== category) {
+      order.category.orderCount = OrderCount + 1;
+    }
+    if (name !== undefined) {
+      order.name = name;
+    }
 
     const updateMinusCount = await this.categoryRepository.update(
       { id: categoryId },
       { orderCount: categoryInfoOrderCount - 1 },
     );
+    await this.orderRepository.save(order);
     return updateMinusCount;
   }
 }
