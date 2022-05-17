@@ -42,7 +42,7 @@ export class OrderService {
 
     return result;
   }
-  async findOne({ id }) {
+  async find({ id }) {
     const result = await this.orderRepository
       .createQueryBuilder('order')
       .innerJoinAndSelect('order.item', 'item')

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Logger,
   Param,
   ParseIntPipe,
@@ -25,6 +26,12 @@ export class ItemController {
     this.logger.verbose(`creating a new item
     Payload: ${JSON.stringify(createItemInput)}`);
     return await this.itemService.create({ createItemInput });
+  }
+
+  @Get('orderId/:orderId')
+  async fetchItems(@Param('orderId') orderId: number) {
+    this.logger.verbose(`CategoryId ${orderId} trying to find all items`);
+    return await this.itemService.find({ orderId });
   }
 
   @Patch('/:id')
