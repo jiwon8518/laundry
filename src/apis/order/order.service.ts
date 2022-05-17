@@ -42,6 +42,17 @@ export class OrderService {
 
     return result;
   }
+  async findOne({ id }) {
+    const result = await this.orderRepository
+      .createQueryBuilder('order')
+      .innerJoinAndSelect('order.item', 'item')
+      .select(['order', 'item.id', 'item.name'])
+      .where('order.id = :id', { id: id })
+      .orderBy('order.createAt', 'ASC')
+      .getMany();
+
+    return result;
+  }
 
   async update({ id, updateOrderInput }) {
     const { name, category } = updateOrderInput;

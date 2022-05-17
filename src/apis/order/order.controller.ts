@@ -30,10 +30,15 @@ export class OrderController {
     return await this.orderService.createOrder({ createOrderInput });
   }
 
-  @Get('/:category')
-  async fetchOrder(@Param('category') category: number) {
+  @Get('category/:category')
+  async fetchOrders(@Param('category') category: number) {
     this.logger.verbose(`CategoryId ${category} trying to find all orders`);
     return await this.orderService.findAll({ category });
+  }
+  @Get('/:id')
+  async fetchOrder(@Param('id') id: number) {
+    this.logger.verbose(`CategoryId ${id} trying to find all orders`);
+    return await this.orderService.findOne({ id });
   }
 
   @Patch('/:id')
