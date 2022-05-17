@@ -10,12 +10,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateItemInput } from './dto/createItem.input';
 import { UpdateItemInput } from './dto/updateItem.input';
 import { Item } from './entities/item.entity';
 import { ItemService } from './item.service';
 
 @Controller('item')
+@ApiTags('아이템 API')
 export class ItemController {
   private logger = new Logger('ItemController');
   constructor(private readonly itemService: ItemService) {}

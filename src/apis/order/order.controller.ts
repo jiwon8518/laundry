@@ -10,12 +10,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateOrderInput } from './dto/createOrder.input';
 import { UpdateOrderInput } from './dto/updateOrder.input';
 import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
 
 @Controller('order')
+@ApiTags('주문 API')
 export class OrderController {
   private logger = new Logger('OrderController');
   constructor(private readonly orderService: OrderService) {}

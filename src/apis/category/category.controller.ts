@@ -8,11 +8,13 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CategoryService } from './category.service';
 import { CreateCategoryInput } from './dto/createCategory.input';
 import { Category } from './entities/category.entity';
 
 @Controller('category')
+@ApiTags('카테고리 API')
 export class CategoryController {
   private logger = new Logger('CategoryController');
   constructor(private readonly categoryService: CategoryService) {}
