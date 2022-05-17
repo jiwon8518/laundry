@@ -38,7 +38,7 @@ export class OrderController {
   @Get('/:id')
   async fetchOrder(@Param('id') id: number) {
     this.logger.verbose(`CategoryId ${id} trying to find all orders`);
-    return await this.orderService.findOne({ id });
+    return await this.orderService.find({ id });
   }
 
   @Patch('/:id')

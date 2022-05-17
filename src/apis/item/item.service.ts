@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Order } from '../order/entities/order.entity';
 import { UpdateItemInput } from './dto/updateItem.input';
 import { Item } from './entities/item.entity';
 
@@ -13,6 +14,8 @@ interface IUpdate {
 export class ItemService {
   @InjectRepository(Item)
   private readonly itemRepository: Repository<Item>;
+  @InjectRepository(Order)
+  private readonly orderRepository: Repository<Order>;
 
   async create({ createItemInput }) {
     return await this.itemRepository.save({ ...createItemInput });
@@ -35,5 +38,14 @@ export class ItemService {
     }
 
     return await this.itemRepository.save(item);
+  }
+
+  async find({ orderId }) {
+    const items = await this.orderRepository.find({
+      where: { id: orderId },
+      relations: ['item'],
+    });
+
+    return items;
   }
 }
