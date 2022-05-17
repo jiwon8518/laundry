@@ -8,7 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CategoryService } from './Category.service';
+import { CategoryService } from './category.service';
 import { CreateCategoryInput } from './dto/createCategory.input';
 import { Category } from './entities/category.entity';
 

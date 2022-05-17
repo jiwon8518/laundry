@@ -27,8 +27,12 @@ export class ItemService {
       .where('item.id = :id', { id: id })
       .getOne();
 
-    item.name = name;
-    item.order.id = order;
+    if (name !== undefined) {
+      item.name = name;
+    }
+    if (order !== undefined) {
+      item.order.id = order;
+    }
 
     return await this.itemRepository.save(item);
   }
