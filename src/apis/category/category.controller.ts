@@ -23,7 +23,8 @@ export class CategoryController {
     @Body() createCategoryInput: CreateCategoryInput,
   ): Promise<Category> {
     this.logger.verbose(`creating a new category
-    Payload: ${JSON.stringify(createCategoryInput)}`);
+    Payload: ${JSON.stringify(createCategoryInput)}
+    `);
     return this.categoryService.createCategory({ createCategoryInput });
   }
 
