@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  laundry_backend:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/laundry_backend/src
+    ports:
+      - 3000:3000
+
+  laundry_database:
+    platform: linux/x86_64
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'laundry'
+      MYSQL_ROOT_PASSWORD: '1234'
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    cap_add:
+      - SYS_NICE
+    ports:
+      - 3306:3306
+
+    # my_redis:
+    #   image: redis:latest
+    #   ports:
+    #     - 6379:6379
